@@ -107,4 +107,4 @@ Installation
 
 License
 -------
-|project| is licensed under the MIT license.
+|project| is licensed under the `MIT license. <https://bitbucket.org/elspacedoge/tapr/src/master/LICENSE>`_
