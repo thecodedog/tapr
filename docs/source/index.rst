@@ -29,26 +29,29 @@ tabular programming extends the concept of broadcasting to **ANY** python
 object or operation; the same way that these libraries get rid of the need
 for loops when working with primitive data types, |project| gets
 rid of the need for loops when working with any type of python object.
-For example, this:
+For example, the task of extracting the 2nd character of each element in
+a dictionary of strings:
 
 .. code-block:: python
 
-   In [7]: data = {'row1': {'col1': "1234", 'col2': "5678"}, 'row2': {'col1': "3000", 'col2': "heyo"}}
-      ...: new_data = {}
-      ...: for k,v in data.items():
-      ...:     new_data[k] = {}
-      ...:     for k1,v1 in v.items():
-      ...:         new_data[k][k1] = v1[1]
-      ...: print(new_data)
-      
-   {'row1': {'col1': '2', 'col2': '6'}, 'row2': {'col1': '0', 'col2': 'e'}}
+    data = {'row1': {'col1': "1234", 'col2': "5678"}, 'row2': {'col1': "3000", 'col2': "heyo"}}
+    new_data = {}
+    for k, v in data.items():
+        new_data[k] = {}
+        for k1, v1 in v.items():
+            new_data[k][k1] = v1[1]
+    new_data
+    Out[3]: {'row1': {'col1': '2', 'col2': '6'}, 'row2': {'col1': '0', 'col2': 'e'}}
 
 becomes:
 
 .. code-block:: python
 
     ntbl = ntable({'row1': {'col1': "1234", 'col2': "5678"}, 'row2': {'col1': "3000", 'col2': "heyo"}})
-    print(ntbl[1])
+    
+    new_ntbl = ntbl[1]
+
+    new_ntbl
     Out[4]: 
     dim1 col1 col2
     dim0          
@@ -71,10 +74,6 @@ also when the logic to be applied to said data has an inherently tabular
 structure. While libraries like numpy, pandas, and xarray facilitate similar
 patterns, not all operations and data types are handled as nicely as they are
 in |project|.
-
-Further more, |project| is designed to facilitate tabular programming in a way that
-maximizes expressiveness without a cost to the one of the key tenets of python
-programming: Explicit is better than implicit.
 
 For a better idea of what |project| has to offer, checkout the |project| :doc:`Overview <./overview>`.
 
