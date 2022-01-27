@@ -51,9 +51,9 @@ def validate_ntable_init(reflist, refmap, engine, ttype):
 
 
 def ttype_to_attrs(ttype):
-    attrs = set()
+    attrs = {}
     for type_ in ttype:
-        attrs |= set(item[0] for item in inspect.getmembers(type_))
+        attrs.update({item[0]:item[1] for item in inspect.getmembers(type_)})
     return attrs
 
 
@@ -202,6 +202,9 @@ def call_args_kwargs(func, *args):
 def call(func, *args, **kwargs):
     return func(*args, **kwargs)
 
+def get_method_and_call(object, methodname, *args, **kwargs):
+    method = getattr(object, methodname)
+    return method(*args, **kwargs)
 
 def setitem(obj, index, value):
     obj[index] = value

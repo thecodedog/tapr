@@ -19,6 +19,7 @@ from .utils import (
     full,
     NULL,
     NTableStopIteration,
+    get_method_and_call,
 )
 from .tabularization import tabularize
 from .engines import StandardEngine, ProcessEngine, ThreadEngine
@@ -147,6 +148,25 @@ class NTableMap(MutableMapping):
 
     def relabel(self, **kwargs):
         return self._ntable.struct.relabel(**{self._dim: kwargs})
+
+class TabularizedMethod:
+    """
+    Represents a method whose call should be tabularized.
+    """
+
+    def __init__(self, ntbl, method_name):
+        self._ntbl = ntbl
+        self._method_name = method_name
+
+    def __call__(self,*args, **kwargs):
+        handled_ = handled_by(FunctionError)(get_method_and_call)
+        return tabularize(handled_, engine=self._ntbl.engine)(self._ntbl, self._method_name, *args, **kwargs)
+
+    def __str__(self):
+        return f"Tabularized {self._method_name}"
+
+    def __repr__(self):
+        return str(self)
 
 
 class TabularizedAttributes:
@@ -324,7 +344,15 @@ class NTable(np.lib.mixins.NDArrayOperatorsMixin):
         try:
             return self.ntable_map(attr)
         except ValueError:
-            if attr in ttype_to_attrs(self._ttype):
+            attr_dict = ttype_to_attrs(self._ttype)
+            if attr in attr_dict:
+                if callable(attr_dict[attr]):
+                    # If the attribute is callable, save on overhead
+                    # by returning a TabularizedMethod object instead
+                    # of calling tabularized getattr since
+                    # TabularizedMethod will reduce on tabularization
+                    # overhead.
+                    return TabularizedMethod(self, attr)
                 return getattr(self.tattr, attr)
             raise AttributeError(f"{attr} is not an attribute of NTable")
 
