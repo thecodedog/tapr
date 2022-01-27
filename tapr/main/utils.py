@@ -98,7 +98,9 @@ def full(value, coords, dims, engine=None, ttype=None):
     # TODO: Turn off validation once this has been tested thoroughly
     return NTable(dlist, dmap, engine, ttype)
 
-def full_like(value, ntbl, engine=None, ttype=None):
+def full_like(value, ntbl, engine=None, ttype=None, lite=False):
+    if lite:
+        return full_lite(value, ntbl.struct.coords, ntbl.struct.dims, engine=engine, ttype=ttype)
     return full(value, ntbl.struct.coords, ntbl.struct.dims, engine=engine, ttype=ttype)
 
 def full_lite(value, coords, dims, engine=None, ttype=None):

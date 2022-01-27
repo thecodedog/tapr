@@ -20,6 +20,7 @@ from .utils import (
     NULL,
     NTableStopIteration,
     get_method_and_call,
+    full_like,
 )
 from .tabularization import tabularize
 from .engines import StandardEngine, ProcessEngine, ThreadEngine
@@ -163,7 +164,8 @@ class TabularizedMethod:
         return tabularize(handled_, engine=self._ntbl.engine)(self._ntbl, self._method_name, *args, **kwargs)
 
     def __str__(self):
-        return f"Tabularized {self._method_name}"
+        method_name_ntbl = full_like(self._method_name, self._ntbl, lite=True)
+        return str(method_name_ntbl)
 
     def __repr__(self):
         return str(self)

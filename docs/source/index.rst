@@ -14,8 +14,7 @@ Welcome to Tapr's documentation!
    tutorials
    modules
    
-   
-   
+
 
 
 What is |project|?
