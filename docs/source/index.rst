@@ -11,6 +11,7 @@ Welcome to Tapr's documentation!
    :caption: Contents:
    
    overview
+   creating_ntables
    tutorials
    modules
    
