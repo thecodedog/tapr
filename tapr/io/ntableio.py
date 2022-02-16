@@ -27,8 +27,8 @@ def save_ntable(ntbl, fname, allow_pickle=False):
     from .serialization import serialize
     from ..main.tabularization import tabularize
 
-    bytes_ntable, type_id_ntable = tabularize(serialize)(ntbl, allow_pickle=allow_pickle)
-    len_ntable = tabularize(len)(bytes_ntable)
+    bytes_ntable, type_id_ntable = tabularize()(serialize)(ntbl, allow_pickle=allow_pickle)
+    len_ntable = tabularize()(len)(bytes_ntable)
 
     engine_bytes, engine_type_id = serialize(ntbl.engine)
 
@@ -115,10 +115,10 @@ def load_ntable(fname, filter={}, allow_pickle=False):
     stop_ntable = ntable(xr.DataArray(stop_ndarray, coords_dict, dims)).filter[filter]
     type_id_ntable = ntable(xr.DataArray(type_id_ndarray, coords_dict, dims)).filter[filter]
 
-    bytes_ntable = tabularize(op.getitem)(
+    bytes_ntable = tabularize()(op.getitem)(
         total_bytes, slice(start_ntable, stop_ntable)
     )
 
-    loaded_ntable = tabularize(deserialize)(bytes_ntable, type_id_ntable, allow_pickle=allow_pickle)
+    loaded_ntable = tabularize()(deserialize)(bytes_ntable, type_id_ntable, allow_pickle=allow_pickle)
     loaded_ntable.engine = deserialize(engine_bytes, engine_type_id)
     return loaded_ntable

@@ -13,6 +13,7 @@ Welcome to Tapr's documentation!
    overview
    creating_ntables
    tutorials
+   changelog
    modules
    
 

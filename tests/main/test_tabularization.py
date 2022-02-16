@@ -28,7 +28,7 @@ class TestTabularize(unittest.TestCase):
         def func(a, b):
             return a + b
 
-        dfunc = tabularize(func)
+        dfunc = tabularize()(func)
         result = dfunc(self._ntbl_a, self._ntbl_b)
         expected_result = ntable(
             {
@@ -42,7 +42,7 @@ class TestTabularize(unittest.TestCase):
         def func(a, b):
             return a + b
 
-        dfunc = tabularize(func)
+        dfunc = tabularize()(func)
         result = dfunc(self._ntbl_a, self._ntbl_c)
         expected_result = ntable(
             {

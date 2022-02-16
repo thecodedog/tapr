@@ -6,6 +6,7 @@ import numpy as np
 import xarray as xr
 
 from .defs import PRINTABLE_TYPES
+from .engines import Engine
 
 
 def _dummy_func(x, y):
@@ -13,11 +14,9 @@ def _dummy_func(x, y):
 
 
 def validate_engine(engine):
-    try:
-        dummy_result = list(engine(_dummy_func, [1, 2, 3, 4], [4, 5, 6]))
-        if len(dummy_result) != 3:
-            raise Exception
-    except Exception:
+    if isinstance(engine, Engine):
+        return
+    else:
         raise ValueError("The input must follow the same interface as map")
 
 
@@ -172,7 +171,7 @@ def str_ntable(ntbl):
 
     ntbl = ntbl.struct[reduce_index]
 
-    ntbl = tabularize(str_ntable_element)(ntbl)
+    ntbl = tabularize()(str_ntable_element)(ntbl)
 
     if ntbl.struct.ndim > 2:
         string = ""

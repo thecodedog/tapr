@@ -3,7 +3,7 @@ import functools as ft
 from .processing import tabular_map, broadcast_tables
 from .utils import any_ntables, call_args_kwargs
 from .conversion import tabulate
-from .engines import StandardEngine
+from .engines import Engine, StandardEngine
 
 
 class _Tabularized:
@@ -47,18 +47,17 @@ class _Tabularized:
     def __repr__(self):
         return str(self)
 
-def tabularize(func, engine=None):
-    """
-    Decorates the given function so that it can work on NTables.
-    Parameters
-    ----------
-    func (callable): The function to decorate
-    engine: The engine to be used in the tabularized call. Default is None.
-
-    Returns
-    -------
-
-    """
+def tabularize(engine=None):
     if engine is None:
         engine = StandardEngine()
-    return _Tabularized(func, engine)
+
+    if not isinstance(engine, Engine):
+        raise TypeError(f"engine must be of type Engine")
+
+    def tabulizer(func):
+        if callable(func):
+            return _Tabularized(func, engine)
+        else:
+            raise TypeError(f"func must be callable, which {func} is not")
+
+    return tabulizer

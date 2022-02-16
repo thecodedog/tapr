@@ -6,6 +6,6 @@ from tapr.main.tabularization import tabularize
 for name in dir(module_):
     value = getattr(module_,name)
     if callable(value):
-        globals()[name] = tabularize(value)
+        globals()[name] = tabularize()(value)
     else:
         globals()[name] = value

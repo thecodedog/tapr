@@ -62,7 +62,7 @@ def tabular_map(func_engine, *ntable_args):
         func = func_engine
         engine = StandardEngine()
     new_reflist = list(
-        engine(func, *(ntbl.struct.flat for ntbl in ntable_args))
+        engine.__tapr_engine__map__(func, *(ntbl.struct.flat for ntbl in ntable_args))
     )
     new_refmap = basic_refmap(
         ntable_args[0].refmap.coords, ntable_args[0].refmap.dims

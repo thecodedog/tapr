@@ -161,7 +161,7 @@ class TabularizedMethod:
 
     def __call__(self,*args, **kwargs):
         handled_ = handled_by(FunctionError)(get_method_and_call)
-        return tabularize(handled_, engine=self._ntbl.engine)(self._ntbl, self._method_name, *args, **kwargs)
+        return tabularize(engine=self._ntbl.engine)(handled_)(self._ntbl, self._method_name, *args, **kwargs)
 
     def __str__(self):
         method_name_ntbl = full_like(self._method_name, self._ntbl, lite=True)
@@ -182,13 +182,13 @@ class TabularizedAttributes:
 
     def __getattr__(self, attr):
         handled_ = handled_by(FunctionError)(getattr)
-        return tabularize(handled_, engine=self._ntable.engine)(
+        return tabularize(engine=self._ntable.engine)(handled_)(
             self._ntable, attr
         )
 
     def __setattr__(self, attr, value):
         handled_ = handled_by(FunctionError)(setattr)
-        tabularize(handled_, engine=self._ntable.engine)(
+        tabularize(engine=self._ntable.engine)(handled_)(
             self._ntable, attr, value
         )
 
@@ -220,7 +220,7 @@ class _NTable_Iterator:
                 engine = ThreadEngine(self._ntbl.engine.processes)
             else:
                 engine = self._ntbl.engine
-            return tabularize(_next, engine=engine)(self._ntbl)
+            return tabularize(engine=engine)(_next)(self._ntbl)
         except NTableStopIteration:
             raise StopIteration
 
@@ -367,29 +367,29 @@ class NTable(np.lib.mixins.NDArrayOperatorsMixin):
         return str(self)
 
     def __iter__(self):
-        ntable_of_iterators = tabularize(iter, engine=self._engine)(self)
+        ntable_of_iterators = tabularize(engine=self._engine)(iter)(self)
         return _NTable_Iterator(ntable_of_iterators)
 
     def __getitem__(self, index):
         handled_ = handled_by(FunctionError)(op.getitem)
-        return tabularize(handled_, engine=self._engine)(self, index)
+        return tabularize(engine=self._engine)(handled_)(self, index)
 
     def __setitem__(self, index, value):
         handled_ = handled_by(print_warning_return_function_error)(setitem)
-        result = tabularize(handled_, engine=self._engine)(self, index, value)
+        result = tabularize(engine=self._engine)(handled_)(self, index, value)
 
     def __call__(self, *args, **kwargs):
         handled_ = handled_by(FunctionError)(call)
-        return tabularize(handled_, engine=self._engine)(self, *args, **kwargs)
+        return tabularize(engine=self._engine)(handled_)(self, *args, **kwargs)
 
     def __array_ufunc__(self, ufunc, method, *inputs, **kwargs):
         ufunc = UFUNC_TO_OP.get(ufunc, ufunc)
         handled_ = handled_by(FunctionError)(ufunc)
-        return tabularize(handled_, engine=self._engine)(*inputs, **kwargs)
+        return tabularize(engine=self._engine)(handled_)(*inputs, **kwargs)
 
     def __array_function__(self, func, types, args, kwargs):
         handled_ = handled_by(FunctionError)(func)
-        return tabularize(handled_, engine=self._engine)(*args, **kwargs)
+        return tabularize(engine=self._engine)(handled_)(*args, **kwargs)
 
     def item(self):
         return self.struct.item()

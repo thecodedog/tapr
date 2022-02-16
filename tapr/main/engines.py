@@ -1,7 +1,12 @@
+from abc import ABC, abstractmethod
 from concurrent import futures as ft
 
+class Engine(ABC):
+    @abstractmethod
+    def __tapr_engine__map__(self, func, *args):
+        pass
 
-class ProcessEngine:
+class ProcessEngine(Engine):
     def __init__(self, processes):
         self._processes = processes
 
@@ -9,7 +14,7 @@ class ProcessEngine:
     def processes(self):
         return self._processes
 
-    def __call__(self, func, *args):
+    def __tapr_engine__map__(self, func, *args):
         with ft.ProcessPoolExecutor(self._processes) as ex:
             return list(ex.map(func, *args))
 
@@ -20,7 +25,7 @@ class ProcessEngine:
         return str(self)
 
 
-class ThreadEngine:
+class ThreadEngine(Engine):
     def __init__(self, threads):
         self._threads = threads
 
@@ -28,7 +33,7 @@ class ThreadEngine:
     def threads(self):
         return self._threads
 
-    def __call__(self, func, *args):
+    def __tapr_engine__map__(self, func, *args):
         with ft.ThreadPoolExecutor(self._threads) as ex:
             return list(ex.map(func, *args))
 
@@ -39,11 +44,11 @@ class ThreadEngine:
         return str(self)
 
 
-class StandardEngine:
+class StandardEngine(Engine):
     def __init__(self):
         pass
 
-    def __call__(self, func, *args):
+    def __tapr_engine__map__(self, func, *args):
         return list(map(func, *args))
 
     def __str__(self):
