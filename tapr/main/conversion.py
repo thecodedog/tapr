@@ -169,7 +169,7 @@ def _pandas_to_ntable(pds, dims=None, engine=None, ttype=None):
     elif isinstance(pds, pd.Series):
         if dims is None:
             dims = ("rows",)
-        coords = {dims[0]: list(pds)}
+        coords = {dims[0]: list(pds.index)}
     refmap = basic_refmap(coords, dims)
     return NTable(reflist, refmap, engine=engine, ttype=ttype)
 
