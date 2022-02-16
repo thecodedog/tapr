@@ -10,7 +10,7 @@ with open(README_PATH, "r") as rm:
 
 setup(
     name="tapr",
-    version="0.1.3",
+    version="0.1.4",
     description="A library to facilitate tabular programming.",
     long_description=README_TEXT,
     long_description_content_type="text/markdown",
