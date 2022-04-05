@@ -91,10 +91,11 @@ engine that will be used for processing. In this case the engine assigned
 to the N-table is a standard serial engine. This means that unless specifically
 told otherwise, processing on the N-table will be done in serial.
 
-Technically, the engine assigned to the N-table can be any callable that
-behaves as the map built-in function i.e. one that takes in a function
+The engine assigned to the N-table must be an object whose class inherits from
+|project|.engines.Engine. Such a class must implement the __tapr_engine__map__ method.
+This method mimics the map built-in function i.e. it takes in a function
 to be called, followed by n arguments to be passed to the input function.
-That being said, it is recommended to use those offered by the |project|.engines
+It is recommended to use those offered by the |project|.engines
 module where one can find the standard serial engine as well as a thread engine
 and a process engine that can be used to process an N-table in a multi-threaded
 or multi-process way.
