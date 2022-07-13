@@ -242,7 +242,7 @@ Furthermore, the tabularize function can be used in python wrapper syntax:
 
 .. code-block:: python
 
-    @tabularize
+    @tabularize()
     def add1(x):
         return x + 1
 
@@ -253,7 +253,7 @@ together and returning the result:
 
 .. code-block:: python
 
-    @tabularize
+    @tabularize()
     def add(x,y):
         return x + y
 

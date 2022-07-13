@@ -15,7 +15,7 @@ class TestQol(unittest.TestCase):
         assert_ntable_equivalent(result, expected)
 
     def test_sblank(self):
-        expected = ntable({"row0":{"col0":NULL(),"col1":NULL()}, "row1":{"col0":NULL(),"col1":NULL()}})
+        expected = ntable({"A0":{"B0":NULL(),"B1":NULL()}, "A1":{"B0":NULL(),"B1":NULL()}}, dims=("A","B"))
         # coords = {"rows":[f"row{i}" for i in range(2)], "cols":[f"col{i}" for i in range(2)]
         result = sblank(*expected.struct.shape)
         assert_ntable_equivalent(result, expected)

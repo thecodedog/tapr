@@ -361,7 +361,7 @@ class NTable(np.lib.mixins.NDArrayOperatorsMixin):
     def __str__(self):
         ttype_strings = sorted([type_.__name__ for type_ in self._ttype])
         ttype_str = "|".join(ttype_strings)
-        return f"{str_ntable(self)}\n{self.struct.coords}\nEngine:\n{self._engine}\nTtype:\n{ttype_str}"
+        return f"{str_ntable(self)}\n{self.struct.coords}\n{self.struct.shape}\nEngine:\n{self._engine}\nTtype:\n{ttype_str}"
 
     def __repr__(self):
         return str(self)

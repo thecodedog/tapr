@@ -283,10 +283,10 @@ class TestNTableCore(unittest.TestCase):
         expected = """dim1    col1    col2
 dim0                
 row1  "r1c1"  "r1c2"
-row2  "r2c1"  "r2c2"
 Coordinates:
   * dim0     (dim0) <U4 'row1' 'row2'
   * dim1     (dim1) <U4 'col1' 'col2'
+(2, 2)
 Engine:
 Standard (serial) Engine
 Ttype:
@@ -422,20 +422,20 @@ class TestMisc(unittest.TestCase):
         expected = """{'row1': dim1
 col1    Test
 col2    Test
-dtype: object
 Coordinates:
     dim0     <U4 'row1'
   * dim1     (dim1) <U4 'col1' 'col2'
+(2,)
 Engine:
 Standard (serial) Engine
 Ttype:
 Test, 'row2': dim1
 col1    Test
 col2    Test
-dtype: object
 Coordinates:
     dim0     <U4 'row2'
   * dim1     (dim1) <U4 'col1' 'col2'
+(2,)
 Engine:
 Standard (serial) Engine
 Ttype:
@@ -447,20 +447,20 @@ Test}"""
         expected = """{'row1': dim1
 col1    Test
 col2    Test
-dtype: object
 Coordinates:
     dim0     <U4 'row1'
   * dim1     (dim1) <U4 'col1' 'col2'
+(2,)
 Engine:
 Standard (serial) Engine
 Ttype:
 Test, 'row2': dim1
 col1    Test
 col2    Test
-dtype: object
 Coordinates:
     dim0     <U4 'row2'
   * dim1     (dim1) <U4 'col1' 'col2'
+(2,)
 Engine:
 Standard (serial) Engine
 Ttype:

@@ -62,13 +62,10 @@ def tabular_map(func_engine, *ntable_args):
         func = func_engine
         engine = StandardEngine()
     new_reflist = list(
-        engine.__tapr_engine__map__(func, *(ntbl.struct.flat for ntbl in ntable_args))
+        engine.__tapr_engine_map__(func, *(ntbl.struct.flat for ntbl in ntable_args))
     )
     new_refmap = basic_refmap(
         ntable_args[0].refmap.coords, ntable_args[0].refmap.dims
     )
-
-    # TODO: Change validate to False once new_reflist and new_refmap
-    # consistency is proven to be guaranteed
     result_engine = ntable_args[0].engine
-    return NTable(new_reflist, new_refmap, result_engine, validate=True)
+    return NTable(new_reflist, new_refmap, result_engine)

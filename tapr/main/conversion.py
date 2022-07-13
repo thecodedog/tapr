@@ -7,7 +7,7 @@ import numpy as np
 import pandas as pd
 import xarray as xr
 
-from .utils import basic_refmap, NULL
+from .utils import basic_refmap, NULL, default_refmap
 from .processing import broadcast_tables, tabular_map
 from .engines import StandardEngine
 from .ttypes import STANDARD_TTYPE
@@ -148,6 +148,13 @@ def _mapping_to_ntable(mapping, dims=None, engine=None, ttype=None):
 
     return NTable(dlist, dmap, engine=engine, ttype=ttype)
 
+def _ndarray_to_ntable(ndarray, engine=None, ttype=None):
+    from .ntable import NTable
+
+    dmap = default_refmap(*ndarray.shape)
+    dlist = list(ndarray.flat)
+    return NTable(dlist, dmap, engine=engine, ttype={type(dlist[0])}) # dlist should all have same type
+
 
 def _data_array_to_ntable(data_array, engine=None, ttype=None):
     from .ntable import NTable
@@ -205,6 +212,9 @@ def ntable(obj, dims=None, engine=None, ttype=None):
 
     if isinstance(obj, Mapping):
         ntbl = _mapping_to_ntable(obj, dims, engine=engine, ttype=ttype)
+        return ntbl
+    if isinstance(obj, np.ndarray):
+        ntbl = _ndarray_to_ntable(obj, engine=engine, ttype=ttype)
         return ntbl
     if isinstance(obj, xr.DataArray):
         ntbl = _data_array_to_ntable(obj, engine=engine, ttype=ttype)

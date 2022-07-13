@@ -69,3 +69,6 @@ dist/
 
 # egg info
 *egg-info*
+
+# Dask
+dask-worker-space/

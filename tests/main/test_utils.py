@@ -177,10 +177,10 @@ class TestValidationUtils(unittest.TestCase):
         expected = """dim1                  y1                     y2                y3
 dim0                                                             
 x1    ndarray,(6,),int64  data array,(6,),int64                 2
-x2         three...e_ten              [1, 2, 3]  [1, 2]...[9, 10]
 Coordinates:
   * dim0     (dim0) <U2 'x1' 'x2'
   * dim1     (dim1) <U2 'y1' 'y2' 'y3'
+(2, 3)
 Engine:
 Standard (serial) Engine
 Ttype:
@@ -226,7 +226,6 @@ row147  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr..
 row148  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
 row149  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
 
-[20 rows x 30 columns]
 
 ###############################################################################
 
@@ -255,7 +254,6 @@ row147  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr..
 row148  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
 row149  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
 
-[20 rows x 30 columns]
 
 ###############################################################################
 
@@ -284,7 +282,6 @@ row147  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr..
 row148  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
 row149  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
 
-[20 rows x 30 columns]
 
 ###############################################################################
 
@@ -313,7 +310,6 @@ row147  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr..
 row148  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
 row149  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
 
-[20 rows x 30 columns]
 
 ###############################################################################
 
@@ -342,7 +338,6 @@ row147  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr..
 row148  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
 row149  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
 
-[20 rows x 30 columns]
 
 ###############################################################################
 
@@ -375,7 +370,6 @@ row147  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr..
 row148  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
 row149  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
 
-[20 rows x 30 columns]
 
 ###############################################################################
 
@@ -404,7 +398,6 @@ row147  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr..
 row148  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
 row149  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
 
-[20 rows x 30 columns]
 
 ###############################################################################
 
@@ -433,7 +426,6 @@ row147  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr..
 row148  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
 row149  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
 
-[20 rows x 30 columns]
 
 ###############################################################################
 
@@ -462,7 +454,6 @@ row147  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr..
 row148  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
 row149  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
 
-[20 rows x 30 columns]
 
 ###############################################################################
 
@@ -491,7 +482,6 @@ row147  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr..
 row148  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
 row149  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
 
-[20 rows x 30 columns]
 
 ###############################################################################
 
@@ -500,6 +490,7 @@ Coordinates:
   * dim0     (dim0) <U6 'row0' 'row1' 'row2' ... 'row147' 'row148' 'row149'
   * dim1     (dim1) <U5 'col0' 'col1' 'col2' 'col3' ... 'col27' 'col28' 'col29'
   * dim2     (dim2) <U6 'page0' 'page1' 'page2' ... 'page12' 'page13' 'page14'
+(150, 30, 15)
 Engine:
 Standard (serial) Engine
 Ttype:
@@ -513,6 +504,7 @@ Coordinates:
     dim0     <U6 'row0'
     dim1     <U5 'col0'
     dim2     <U6 'page0'
+()
 Engine:
 Standard (serial) Engine
 Ttype:
@@ -527,21 +519,22 @@ row0  ndarray,(10,),int64  ndarray,(10,),int64  ndarray,(10,),int64
 row1  ndarray,(10,),int64  ndarray,(10,),int64  ndarray,(10,),int64
 row2  ndarray,(10,),int64  ndarray,(10,),int64  ndarray,(10,),int64
 row3  ndarray,(10,),int64  ndarray,(10,),int64  ndarray,(10,),int64
-row4  ndarray,(10,),int64  ndarray,(10,),int64  ndarray,(10,),int64
 Coordinates:
   * dim0     (dim0) <U6 'row0' 'row1' 'row2' 'row3' 'row4'
   * dim1     (dim1) <U5 'col0' 'col1' 'col2'
     dim2     <U6 'page0'
+(5, 3)
 Engine:
 Standard (serial) Engine
 Ttype:
 ndarray"""
 
+        self.maxDiff = None
         self.assertEqual(result, expected)
 
         # biggish boi
         result = str(ntbl.struct[:, :, 0:5])
-        # print(result)
+        #print(result)
         expected = """page0:
 
 dim1             col0           col1           col2           col3  ...          col26          col27          col28          col29
@@ -567,7 +560,6 @@ row147  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr..
 row148  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
 row149  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
 
-[20 rows x 30 columns]
 
 ###############################################################################
 
@@ -596,7 +588,6 @@ row147  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr..
 row148  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
 row149  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
 
-[20 rows x 30 columns]
 
 ###############################################################################
 
@@ -625,7 +616,6 @@ row147  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr..
 row148  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
 row149  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
 
-[20 rows x 30 columns]
 
 ###############################################################################
 
@@ -654,7 +644,6 @@ row147  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr..
 row148  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
 row149  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
 
-[20 rows x 30 columns]
 
 ###############################################################################
 
@@ -683,7 +672,6 @@ row147  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr..
 row148  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
 row149  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
 
-[20 rows x 30 columns]
 
 ###############################################################################
 
@@ -692,6 +680,7 @@ Coordinates:
   * dim0     (dim0) <U6 'row0' 'row1' 'row2' ... 'row147' 'row148' 'row149'
   * dim1     (dim1) <U5 'col0' 'col1' 'col2' 'col3' ... 'col27' 'col28' 'col29'
   * dim2     (dim2) <U6 'page0' 'page1' 'page2' 'page3' 'page4'
+(150, 30, 5)
 Engine:
 Standard (serial) Engine
 Ttype:
@@ -745,7 +734,7 @@ ndarray"""
 
     def test_default_refmap(self):
         refmap = default_refmap(3,2)
-        expected = xr.DataArray(np.arange(6).reshape((3,2)), coords={"dim0":["coord0","coord1","coord2"], "dim1":["coord0","coord1"]})
+        expected = xr.DataArray(np.arange(6).reshape((3,2)), coords={"A":["A0","A1","A2"], "B":["B0","B1"]})
         self.assertTrue(refmap.equals(expected))
 
 

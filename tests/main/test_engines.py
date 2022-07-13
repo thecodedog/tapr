@@ -26,7 +26,7 @@ class TestStandardEngine(unittest.TestCase):
 
     def test_call(self):
         engine = StandardEngine()
-        result = engine.__tapr_engine__map__(func, self._ntbl_a.reflist, self._ntbl_b.reflist)
+        result = engine.__tapr_engine_map__(func, self._ntbl_a.reflist, self._ntbl_b.reflist)
         self.assertListEqual(
             result,
             [
@@ -55,7 +55,7 @@ class TestThreadEngine(unittest.TestCase):
 
     def test_call(self):
         engine = ThreadEngine(threads=8)
-        result = engine.__tapr_engine__map__(func, self._ntbl_a.reflist, self._ntbl_b.reflist)
+        result = engine.__tapr_engine_map__(func, self._ntbl_a.reflist, self._ntbl_b.reflist)
         self.assertListEqual(
             result,
             [
@@ -84,7 +84,7 @@ class TestProcessEngine(unittest.TestCase):
 
     def test_call(self):
         engine = ProcessEngine(processes=8)
-        result = engine.__tapr_engine__map__(func, self._ntbl_a.reflist, self._ntbl_b.reflist)
+        result = engine.__tapr_engine_map__(func, self._ntbl_a.reflist, self._ntbl_b.reflist)
         self.assertListEqual(
             result,
             [

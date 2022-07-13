@@ -1,4 +1,6 @@
 import inspect
+import itertools as it
+import string
 from collections.abc import MutableMapping
 
 import h5py
@@ -187,6 +189,7 @@ def str_ntable(ntbl):
         string = str(ntbl.struct.item())
     else:
         string = str(ntbl.to_pandas())
+        string = "\n".join(string.split("\n")[0:-1])
     return string
 
 
@@ -330,12 +333,16 @@ def concatenate_ntables(objs, dim, coords=None):
         new_dlist, new_dmap = handle_improper_broadcast(new_dlist, new_dmap)
         return NTable(new_dlist, new_dmap, engine=new_engine, ttype=new_ttype)
 
+def _infinite_alphabet():
+    for i in it.count(1):
+        for p in it.product(string.ascii_uppercase, repeat=i):
+            yield ''.join(p)
 
 def default_refmap(*shape):
-    dims = tuple(f"dim{i}" for i in range(len(shape)))
+    dims = tuple(dim for i, dim in zip(range(len(shape)),_infinite_alphabet()))
     coords = {dim: [] for dim in dims}
     for dim, size in zip(dims, shape):
-        coords[dim] = [f"coord{i}" for i in range(size)]
+        coords[dim] = [f"{dim}{i}" for i in range(size)]
 
     refarray = np.arange(np.prod(shape)).reshape(shape)
     refmap = xr.DataArray(refarray, coords, dims)
