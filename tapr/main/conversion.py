@@ -181,7 +181,7 @@ def _pandas_to_ntable(pds, dims=None, engine=None, ttype=None):
     return NTable(reflist, refmap, engine=engine, ttype=ttype)
 
 
-def ntable(obj, dims=None, engine=None, ttype=None):
+def ntable(obj, dims=None, engine=None, ttype=None, coords=None, shape=None):
     """
     Parameters
     ----------
@@ -225,8 +225,16 @@ def ntable(obj, dims=None, engine=None, ttype=None):
     if isinstance(obj, NTable):
         ntbl = NTable(obj.reflist, obj.refmap, engine=engine, ttype=ttype)
         return ntbl
+
     try:
-        ntbl = tabulate(obj)
-        return ntbl
+        dlist = list(obj)
+        if coords is not None and dims is not None:
+            dmap  = basic_refmap(coords, dims)
+        elif shape is not None:
+            dmap = default_refmap(*shape)
+        else:
+            dmap = default_refmap(len(dlist))
+        return NTable(dlist, dmap, engine=engine, ttype=ttype)
+
     except TypeError:
         raise TypeError(f"Unable to convert {type(obj)} to NTable")
