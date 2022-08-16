@@ -158,7 +158,7 @@ def str_ntable(ntbl):
 
     try:
         if len(ntbl.struct.coords[dims[1]]) > max_cols:
-            reduce_index[dims[0]] = np.r_[0:10, -10:0]
+            reduce_index[dims[1]] = np.r_[0:10, -10:0]
     except IndexError:
         pass
 
@@ -224,32 +224,6 @@ class _Singleton(type):
             )
         return cls._instances[cls]
 
-
-# class SUPREMUM(metaclass=_Singleton):
-#     def __gt__(self, other):
-#         return True
-#
-#     def __ge__(self, other):
-#         return True
-#
-#     def __lt__(self, other):
-#         return False
-#
-#     def __le__(self, other):
-#         return False
-
-# class INFIMUM(metaclass=_Singleton):
-#     def __gt__(self, other):
-#         return False
-#
-#     def __ge__(self, other):
-#         return False
-#
-#     def __lt__(self, other):
-#         return True
-#
-#     def __le__(self, other):
-#         return True
 
 
 class NULL(np.lib.mixins.NDArrayOperatorsMixin, metaclass=_Singleton):
