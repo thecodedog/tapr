@@ -189,7 +189,7 @@ def str_ntable(ntbl):
         string = str(ntbl.struct.item())
     else:
         string = str(ntbl.to_pandas())
-        string = "\n".join(string.split("\n")[0:-1])
+        string = "\n".join(string.split("\n"))
     return string
 
 

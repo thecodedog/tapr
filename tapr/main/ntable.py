@@ -1,3 +1,4 @@
+import re
 from collections.abc import MutableMapping
 import itertools as it
 import operator as op
@@ -71,18 +72,10 @@ class NTableMap(MutableMapping):
         result.extend(list(self.keys()))
         return result
 
-    # def _ipython_key_completions_(self, incomplete_key):
-    #     if not isinstance(incomplete_key, str):
-    #         return []
-    #     coords_dict = xarray_coords_to_dict(self._ntable.struct.coords)
-    #     dim_coords = coords_dict[self._dim]
-    #     result = []
-    #     for coord in dim_coords:
-    #         if isinstance(coord, str):
-    #             if coord.startswith(incomplete_key):
-    #                 result.append(coord)
-    #
-    #     return [coord for coord in dim_coords if coord.startswith(incomplete_key)]
+    def _ipython_key_completions_(self, incomplete_key):
+        if not isinstance(incomplete_key, str):
+            return []
+        return [coord for coord in self if (isinstance(coord, str) and coord.startswith(incomplete_key))]
 
     def __getattr__(self, attr):
         try:
@@ -91,7 +84,21 @@ class NTableMap(MutableMapping):
             raise AttributeError(f"{attr} is not an attribute of NTable")
 
     def __str__(self):
-        return str(dict(**self))
+        keylist = list(self)
+        result = "{\n    "
+        if len(self) > 6:
+            topkeys = keylist[0:2]
+            botkeys = keylist[-2:]
+            for key in topkeys:
+                result += f"\n{key}:\n{self[key]}\n"
+            result += "\n.\n.\n.\n\n"
+            for key in botkeys:
+                result += f"\n{key}:\n{self[key]}\n"
+        else:
+            for key in keylist:
+                result += f"\n{key}:\n{self[key]}\n"
+        result = result.replace("\n", "\n    ")
+        return result + "\n}"
 
     def __repr__(self):
         return str(self)
@@ -338,9 +345,10 @@ class NTable(np.lib.mixins.NDArrayOperatorsMixin):
 
     def __dir__(self):
         result = list(self.__dict__)
+        result.extend(list(NTable.__dict__))
         result.extend(self.struct.dims)
         result.extend(ttype_to_attrs(self.ttype))
-        return result
+        return [item for item in result if not re.match(r"_|__.*", item)]
 
     def __getattr__(self, attr):
         try:
@@ -421,7 +429,7 @@ class NTable(np.lib.mixins.NDArrayOperatorsMixin):
 
     def to_dictionary(self, into=None, enforce_nested_typing=True):
         """
-        Convert a NTable object into a dictionary
+        Convert an NTable object into a dictionary
 
         Parameters
         ----------
@@ -459,7 +467,7 @@ class NTable(np.lib.mixins.NDArrayOperatorsMixin):
 
     def to_pandas(self, dtype="object"):
         """
-        Convert a NTable object into a Pandas object
+        Convert an NTable object into a Pandas object
         (Series or DataFrame depending on the shape of the NTable object.)
 
         Parameters
@@ -488,7 +496,7 @@ class NTable(np.lib.mixins.NDArrayOperatorsMixin):
 
     def to_data_array(self, dtype="object"):
         """
-        Convert a NTable object into a DataArray
+        Convert an NTable object into a DataArray
 
         Parameters
         ----------
