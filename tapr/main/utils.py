@@ -349,18 +349,6 @@ def default_refmap(*shape):
     return refmap
 
 
-# class _Shell:
-#     def __init__(self, obj):
-#         self._obj = obj
-#
-#     def __TAPR_PEEL__(self):
-#         return self._obj
-#
-#
-# def shell(obj, layers=1):
-#     return _Shell(obj)
-
-
 def expand(iterable):
     result = []
     for item in iterable:
