@@ -4,7 +4,7 @@ import numpy as np
 
 from tapr.main.conversion import ntable
 from tapr.main.engines import ProcessEngine, ThreadEngine
-from tapr.io.ntableio import save_ntable, load_ntable
+from tapr.io_.ntableio import save_ntable, load_ntable
 from tests.testing_utils import assert_ntable_equivalent
 
 

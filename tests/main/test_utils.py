@@ -18,6 +18,13 @@ from tapr.main.engines import StandardEngine, ProcessEngine, ThreadEngine
 
 from tests.testing_utils import assert_ntable_equivalent
 
+import pandas as pd
+
+# make pandas output consistent
+pd.set_option("display.max_rows", 20)
+pd.set_option("display.max_columns", 5)
+pd.set_option("display.width", 100)
+
 
 class BadEngine:
     def __init__(self):
@@ -177,6 +184,7 @@ class TestValidationUtils(unittest.TestCase):
         expected = """dim1                  y1                     y2                y3
 dim0                                                             
 x1    ndarray,(6,),int64  data array,(6,),int64                 2
+x2         three...e_ten              [1, 2, 3]  [1, 2]...[9, 10]
 Coordinates:
   * dim0     (dim0) <U2 'x1' 'x2'
   * dim1     (dim1) <U2 'y1' 'y2' 'y3'
@@ -203,141 +211,101 @@ DataArray|int|list|ndarray|str"""
         result = str(ntbl)
         expected = """page0:
 
-dim1             col0           col1           col2           col3  ...          col26          col27          col28          col29
-dim0                                                                ...                                                            
-row0    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row1    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row2    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row3    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row4    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row5    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row6    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row7    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row8    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row9    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row140  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row141  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row142  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row143  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row144  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row145  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row146  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row147  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row148  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row149  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
+dim1             col0           col1  ...          col28          col29
+dim0                                  ...                              
+row0    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row1    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row2    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row3    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row4    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+...               ...            ...  ...            ...            ...
+row145  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row146  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row147  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row148  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row149  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
 
+[100 rows x 20 columns]
 
 ###############################################################################
 
 page1:
 
-dim1             col0           col1           col2           col3  ...          col26          col27          col28          col29
-dim0                                                                ...                                                            
-row0    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row1    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row2    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row3    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row4    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row5    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row6    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row7    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row8    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row9    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row140  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row141  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row142  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row143  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row144  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row145  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row146  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row147  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row148  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row149  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
+dim1             col0           col1  ...          col28          col29
+dim0                                  ...                              
+row0    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row1    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row2    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row3    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row4    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+...               ...            ...  ...            ...            ...
+row145  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row146  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row147  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row148  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row149  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
 
+[100 rows x 20 columns]
 
 ###############################################################################
 
 page2:
 
-dim1             col0           col1           col2           col3  ...          col26          col27          col28          col29
-dim0                                                                ...                                                            
-row0    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row1    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row2    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row3    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row4    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row5    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row6    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row7    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row8    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row9    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row140  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row141  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row142  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row143  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row144  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row145  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row146  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row147  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row148  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row149  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
+dim1             col0           col1  ...          col28          col29
+dim0                                  ...                              
+row0    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row1    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row2    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row3    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row4    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+...               ...            ...  ...            ...            ...
+row145  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row146  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row147  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row148  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row149  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
 
+[100 rows x 20 columns]
 
 ###############################################################################
 
 page3:
 
-dim1             col0           col1           col2           col3  ...          col26          col27          col28          col29
-dim0                                                                ...                                                            
-row0    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row1    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row2    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row3    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row4    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row5    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row6    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row7    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row8    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row9    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row140  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row141  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row142  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row143  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row144  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row145  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row146  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row147  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row148  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row149  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
+dim1             col0           col1  ...          col28          col29
+dim0                                  ...                              
+row0    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row1    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row2    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row3    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row4    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+...               ...            ...  ...            ...            ...
+row145  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row146  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row147  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row148  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row149  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
 
+[100 rows x 20 columns]
 
 ###############################################################################
 
 page4:
 
-dim1             col0           col1           col2           col3  ...          col26          col27          col28          col29
-dim0                                                                ...                                                            
-row0    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row1    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row2    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row3    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row4    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row5    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row6    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row7    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row8    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row9    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row140  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row141  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row142  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row143  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row144  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row145  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row146  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row147  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row148  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row149  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
+dim1             col0           col1  ...          col28          col29
+dim0                                  ...                              
+row0    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row1    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row2    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row3    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row4    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+...               ...            ...  ...            ...            ...
+row145  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row146  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row147  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row148  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row149  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
 
+[100 rows x 20 columns]
 
 ###############################################################################
 
@@ -347,141 +315,101 @@ row149  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr..
 
 page10:
 
-dim1             col0           col1           col2           col3  ...          col26          col27          col28          col29
-dim0                                                                ...                                                            
-row0    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row1    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row2    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row3    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row4    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row5    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row6    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row7    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row8    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row9    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row140  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row141  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row142  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row143  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row144  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row145  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row146  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row147  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row148  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row149  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
+dim1             col0           col1  ...          col28          col29
+dim0                                  ...                              
+row0    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row1    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row2    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row3    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row4    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+...               ...            ...  ...            ...            ...
+row145  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row146  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row147  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row148  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row149  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
 
+[100 rows x 20 columns]
 
 ###############################################################################
 
 page11:
 
-dim1             col0           col1           col2           col3  ...          col26          col27          col28          col29
-dim0                                                                ...                                                            
-row0    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row1    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row2    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row3    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row4    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row5    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row6    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row7    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row8    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row9    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row140  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row141  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row142  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row143  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row144  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row145  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row146  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row147  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row148  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row149  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
+dim1             col0           col1  ...          col28          col29
+dim0                                  ...                              
+row0    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row1    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row2    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row3    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row4    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+...               ...            ...  ...            ...            ...
+row145  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row146  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row147  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row148  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row149  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
 
+[100 rows x 20 columns]
 
 ###############################################################################
 
 page12:
 
-dim1             col0           col1           col2           col3  ...          col26          col27          col28          col29
-dim0                                                                ...                                                            
-row0    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row1    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row2    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row3    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row4    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row5    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row6    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row7    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row8    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row9    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row140  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row141  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row142  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row143  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row144  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row145  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row146  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row147  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row148  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row149  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
+dim1             col0           col1  ...          col28          col29
+dim0                                  ...                              
+row0    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row1    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row2    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row3    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row4    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+...               ...            ...  ...            ...            ...
+row145  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row146  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row147  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row148  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row149  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
 
+[100 rows x 20 columns]
 
 ###############################################################################
 
 page13:
 
-dim1             col0           col1           col2           col3  ...          col26          col27          col28          col29
-dim0                                                                ...                                                            
-row0    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row1    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row2    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row3    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row4    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row5    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row6    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row7    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row8    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row9    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row140  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row141  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row142  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row143  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row144  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row145  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row146  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row147  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row148  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row149  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
+dim1             col0           col1  ...          col28          col29
+dim0                                  ...                              
+row0    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row1    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row2    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row3    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row4    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+...               ...            ...  ...            ...            ...
+row145  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row146  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row147  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row148  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row149  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
 
+[100 rows x 20 columns]
 
 ###############################################################################
 
 page14:
 
-dim1             col0           col1           col2           col3  ...          col26          col27          col28          col29
-dim0                                                                ...                                                            
-row0    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row1    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row2    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row3    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row4    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row5    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row6    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row7    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row8    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row9    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row140  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row141  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row142  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row143  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row144  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row145  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row146  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row147  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row148  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row149  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
+dim1             col0           col1  ...          col28          col29
+dim0                                  ...                              
+row0    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row1    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row2    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row3    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row4    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+...               ...            ...  ...            ...            ...
+row145  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row146  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row147  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row148  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row149  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
 
+[100 rows x 20 columns]
 
 ###############################################################################
 
@@ -495,6 +423,8 @@ Engine:
 Standard (serial) Engine
 Ttype:
 ndarray"""
+
+        self.maxDiff = None
         self.assertEqual(result, expected)
 
         # 0 dim ntbl
@@ -519,6 +449,7 @@ row0  ndarray,(10,),int64  ndarray,(10,),int64  ndarray,(10,),int64
 row1  ndarray,(10,),int64  ndarray,(10,),int64  ndarray,(10,),int64
 row2  ndarray,(10,),int64  ndarray,(10,),int64  ndarray,(10,),int64
 row3  ndarray,(10,),int64  ndarray,(10,),int64  ndarray,(10,),int64
+row4  ndarray,(10,),int64  ndarray,(10,),int64  ndarray,(10,),int64
 Coordinates:
   * dim0     (dim0) <U6 'row0' 'row1' 'row2' 'row3' 'row4'
   * dim1     (dim1) <U5 'col0' 'col1' 'col2'
@@ -534,144 +465,104 @@ ndarray"""
 
         # biggish boi
         result = str(ntbl.struct[:, :, 0:5])
-        #print(result)
+        # print(result)
         expected = """page0:
 
-dim1             col0           col1           col2           col3  ...          col26          col27          col28          col29
-dim0                                                                ...                                                            
-row0    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row1    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row2    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row3    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row4    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row5    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row6    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row7    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row8    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row9    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row140  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row141  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row142  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row143  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row144  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row145  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row146  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row147  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row148  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row149  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
+dim1             col0           col1  ...          col28          col29
+dim0                                  ...                              
+row0    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row1    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row2    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row3    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row4    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+...               ...            ...  ...            ...            ...
+row145  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row146  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row147  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row148  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row149  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
 
+[100 rows x 20 columns]
 
 ###############################################################################
 
 page1:
 
-dim1             col0           col1           col2           col3  ...          col26          col27          col28          col29
-dim0                                                                ...                                                            
-row0    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row1    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row2    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row3    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row4    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row5    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row6    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row7    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row8    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row9    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row140  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row141  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row142  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row143  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row144  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row145  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row146  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row147  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row148  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row149  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
+dim1             col0           col1  ...          col28          col29
+dim0                                  ...                              
+row0    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row1    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row2    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row3    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row4    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+...               ...            ...  ...            ...            ...
+row145  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row146  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row147  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row148  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row149  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
 
+[100 rows x 20 columns]
 
 ###############################################################################
 
 page2:
 
-dim1             col0           col1           col2           col3  ...          col26          col27          col28          col29
-dim0                                                                ...                                                            
-row0    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row1    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row2    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row3    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row4    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row5    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row6    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row7    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row8    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row9    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row140  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row141  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row142  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row143  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row144  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row145  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row146  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row147  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row148  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row149  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
+dim1             col0           col1  ...          col28          col29
+dim0                                  ...                              
+row0    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row1    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row2    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row3    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row4    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+...               ...            ...  ...            ...            ...
+row145  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row146  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row147  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row148  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row149  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
 
+[100 rows x 20 columns]
 
 ###############################################################################
 
 page3:
 
-dim1             col0           col1           col2           col3  ...          col26          col27          col28          col29
-dim0                                                                ...                                                            
-row0    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row1    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row2    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row3    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row4    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row5    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row6    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row7    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row8    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row9    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row140  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row141  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row142  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row143  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row144  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row145  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row146  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row147  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row148  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row149  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
+dim1             col0           col1  ...          col28          col29
+dim0                                  ...                              
+row0    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row1    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row2    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row3    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row4    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+...               ...            ...  ...            ...            ...
+row145  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row146  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row147  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row148  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row149  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
 
+[100 rows x 20 columns]
 
 ###############################################################################
 
 page4:
 
-dim1             col0           col1           col2           col3  ...          col26          col27          col28          col29
-dim0                                                                ...                                                            
-row0    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row1    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row2    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row3    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row4    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row5    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row6    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row7    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row8    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row9    ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row140  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row141  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row142  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row143  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row144  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row145  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row146  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row147  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row148  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
-row149  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64  ndarr...int64  ndarr...int64
+dim1             col0           col1  ...          col28          col29
+dim0                                  ...                              
+row0    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row1    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row2    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row3    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row4    ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+...               ...            ...  ...            ...            ...
+row145  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row146  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row147  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row148  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
+row149  ndarr...int64  ndarr...int64  ...  ndarr...int64  ndarr...int64
 
+[100 rows x 20 columns]
 
 ###############################################################################
 
@@ -724,7 +615,9 @@ ndarray"""
             "x2": {"y1": "three", "y2": 4, "y3": NULL()},
         }
 
-        new_ntbl1 = concatenate_ntables((ntbl, ntbl.struct[:,0:2]), dim="dim2")
+        new_ntbl1 = concatenate_ntables(
+            (ntbl, ntbl.struct[:, 0:2]), dim="dim2"
+        )
 
         expected_ntbl1 = ntable(
             {0: dictionary, 1: dictionary1}, dims=("dim2", "dim0", "dim1")
@@ -733,8 +626,11 @@ ndarray"""
         assert_ntable_equivalent(new_ntbl1, expected_ntbl1)
 
     def test_default_refmap(self):
-        refmap = default_refmap(3,2)
-        expected = xr.DataArray(np.arange(6).reshape((3,2)), coords={"A":["A0","A1","A2"], "B":["B0","B1"]})
+        refmap = default_refmap(3, 2)
+        expected = xr.DataArray(
+            np.arange(6).reshape((3, 2)),
+            coords={"A": ["A0", "A1", "A2"], "B": ["B0", "B1"]},
+        )
         self.assertTrue(refmap.equals(expected))
 
 

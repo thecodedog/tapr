@@ -72,3 +72,6 @@ dist/
 
 # Dask
 dask-worker-space/
+
+# spyder
+.spyproject

@@ -13,14 +13,14 @@ tabularization = il.import_module(".main.tabularization", package=__name__)
 ttypes = il.import_module(".main.ttypes", package=__name__)
 utils = il.import_module(".main.utils", package=__name__)
 
-io = il.import_module(".io", package=__name__)
+io = il.import_module(".io_", package=__name__)
 
 from .main.conversion import ntable
 from .main.qol import blank, sblank, cartograph, count
 from .main.tabularization import tabularize
 from .main.utils import full, full_lite, full_like, concatenate_ntables as concatenate
 
-from .io.ntableio import save_ntable, load_ntable
+from .io_.ntableio import save_ntable, load_ntable
 
 _px = il.import_module(".visualization.plotly.express", package=__name__)
 # look for any tabularized plotly express functions and expose them here

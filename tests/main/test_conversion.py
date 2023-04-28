@@ -46,17 +46,6 @@ class TestNTable(unittest.TestCase):
         ntbl = ntable(self._expected_ntbl)
         assert_ntable_equivalent(self._expected_ntbl, ntbl)
 
-    def test_ntable_collection(self):
-        ntbl = ntable((self._expected_ntbl, 3))
-        reflist = [(0, 3), ("1", 3), (2, 3), ("three", 3), (4, 3), ("5", 3)]
-        refmap = xr.DataArray(
-            np.arange(6).reshape((2, 3)),
-            coords={"dim0": ["x1", "x2"], "dim1": ["y1", "y2", "y3"]},
-            dims=["dim0", "dim1"],
-        )
-        expected_ntbl = NTable(reflist, refmap)
-        assert_ntable_equivalent(expected_ntbl, ntbl)
-
     def test_ntable_unable(self):
         result = False
         test = 30

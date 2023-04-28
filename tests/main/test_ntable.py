@@ -92,7 +92,7 @@ class TestNTableCoversion(unittest.TestCase):
         ).T
         test_dframe.index.rename("dim_0", inplace=True)
         test_dframe.columns.rename("dim_1", inplace=True)
-        pd.util.testing.assert_frame_equal(dframe, test_dframe)
+        pd.testing.assert_frame_equal(dframe, test_dframe)
 
     def test_to_data_array(self):
         darray = self._ntable_a.to_data_array()
@@ -283,6 +283,7 @@ class TestNTableCore(unittest.TestCase):
         expected = """dim1    col1    col2
 dim0                
 row1  "r1c1"  "r1c2"
+row2  "r2c1"  "r2c2"
 Coordinates:
   * dim0     (dim0) <U4 'row1' 'row2'
   * dim1     (dim1) <U4 'col1' 'col2'
@@ -419,52 +420,72 @@ class TestMisc(unittest.TestCase):
 
     def test_ntable_map_str(self):
         result = str(self._ntbl_a.dim0)
-        expected = """{'row1': dim1
-col1    Test
-col2    Test
-Coordinates:
-    dim0     <U4 'row1'
-  * dim1     (dim1) <U4 'col1' 'col2'
-(2,)
-Engine:
-Standard (serial) Engine
-Ttype:
-Test, 'row2': dim1
-col1    Test
-col2    Test
-Coordinates:
-    dim0     <U4 'row2'
-  * dim1     (dim1) <U4 'col1' 'col2'
-(2,)
-Engine:
-Standard (serial) Engine
-Ttype:
-Test}"""
+        expected = """{
+        
+    row1:
+    dim1
+    col1    Test
+    col2    Test
+    dtype: object
+    Coordinates:
+        dim0     <U4 'row1'
+      * dim1     (dim1) <U4 'col1' 'col2'
+    (2,)
+    Engine:
+    Standard (serial) Engine
+    Ttype:
+    Test
+    
+    row2:
+    dim1
+    col1    Test
+    col2    Test
+    dtype: object
+    Coordinates:
+        dim0     <U4 'row2'
+      * dim1     (dim1) <U4 'col1' 'col2'
+    (2,)
+    Engine:
+    Standard (serial) Engine
+    Ttype:
+    Test
+    
+}"""
         self.assertEqual(result, expected)
 
     def test_ntable_map_repr(self):
         result = repr(self._ntbl_a.dim0)
-        expected = """{'row1': dim1
-col1    Test
-col2    Test
-Coordinates:
-    dim0     <U4 'row1'
-  * dim1     (dim1) <U4 'col1' 'col2'
-(2,)
-Engine:
-Standard (serial) Engine
-Ttype:
-Test, 'row2': dim1
-col1    Test
-col2    Test
-Coordinates:
-    dim0     <U4 'row2'
-  * dim1     (dim1) <U4 'col1' 'col2'
-(2,)
-Engine:
-Standard (serial) Engine
-Ttype:
-Test}"""
+        expected = """{
+        
+    row1:
+    dim1
+    col1    Test
+    col2    Test
+    dtype: object
+    Coordinates:
+        dim0     <U4 'row1'
+      * dim1     (dim1) <U4 'col1' 'col2'
+    (2,)
+    Engine:
+    Standard (serial) Engine
+    Ttype:
+    Test
+    
+    row2:
+    dim1
+    col1    Test
+    col2    Test
+    dtype: object
+    Coordinates:
+        dim0     <U4 'row2'
+      * dim1     (dim1) <U4 'col1' 'col2'
+    (2,)
+    Engine:
+    Standard (serial) Engine
+    Ttype:
+    Test
+    
+}"""
         self.assertEqual(result, expected)
 
     def test_ntable_map_delitem(self):
