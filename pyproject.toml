@@ -1,6 +1,6 @@
 [project]
 name = "tapr"
-version = "0.3.0"
+version = "0.3.1"
 authors = [
   { name="thecodedog", email="elcodedog@gmail.com" },
 ]
@@ -13,7 +13,6 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 dependencies = [
-    "dask==2023.4.0",
     "h5py==3.8.0",
     "numpy==1.24.3",
     "pandas==2.0.1",
