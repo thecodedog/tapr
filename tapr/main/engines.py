@@ -1,11 +1,14 @@
 from abc import ABC, abstractmethod
 from concurrent import futures as ft
-from dask.distributed import Client
+
+# from dask.distributed import Client
+
 
 class Engine(ABC):
     @abstractmethod
     def __tapr_engine_map__(self, func, *args):
         pass
+
 
 class ProcessEngine(Engine):
     def __init__(self, processes):
@@ -59,21 +62,21 @@ class StandardEngine(Engine):
         return str(self)
 
 
-class DaskClientEngine(Engine):
-    def __init__(self, *client_args, **client_kwargs):
-        self._client = Client(*client_args, **client_kwargs)
+# class DaskClientEngine(Engine):
+#     def __init__(self, *client_args, **client_kwargs):
+#         self._client = Client(*client_args, **client_kwargs)
 
-    @property
-    def client(self):
-        return self._client
+#     @property
+#     def client(self):
+#         return self._client
 
-    def __tapr_engine_map__(self, func, *args):
-        args = [list(arg) for arg in args]
-        futures = self._client.map(func, *args)
-        return self._client.gather(futures)
+#     def __tapr_engine_map__(self, func, *args):
+#         args = [list(arg) for arg in args]
+#         futures = self._client.map(func, *args)
+#         return self._client.gather(futures)
 
-    def __str__(self):
-        return f"Dask Client Engine"
+#     def __str__(self):
+#         return f"Dask Client Engine"
 
-    def __repr__(self):
-        return str(self)
+#     def __repr__(self):
+#         return str(self)
