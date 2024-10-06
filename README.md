@@ -14,7 +14,7 @@ Tapr facilitates what it stands for: TAbular PRogramming. In short what this mea
 is that it allows users to work with tabular objects called N-tables. N-tables
 are n-dimensional tables (10/10 naming right?) that can contain any python object.
 They provide a suite of operations that are "tabularized", which is a concept similar
-to vectoraization and broadcasting in other table-oriented libraries like numpy,
+to vectorization and broadcasting in other table-oriented libraries like numpy,
 pandas, and xarray. The same way these libraries get rid of the need for
 loops on more primative data types, Tapr does so for any python data type.
 
